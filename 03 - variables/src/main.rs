@@ -46,5 +46,5 @@ fn main() {
     // array: fixed-length, same type
     let _days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     let _a: [i32; 5] = [1, 2, 3, 4, 5]; // with annotation [type; # of elements]
-    let _a = [10; 2]; // _a=[10, 10] all elements have the same value [val, # of elements]
+    let _a = [10; 2]; // _a=[10, 10] all elements have the same value [val; # of elements]
 }

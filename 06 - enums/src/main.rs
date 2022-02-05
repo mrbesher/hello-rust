@@ -17,6 +17,20 @@ enum Message {
     ChangeColor(i32, i32, i32),
 }
 
+#[derive(Debug)]
+enum UsState {
+    Alabama,
+    Alaska,
+    // --snip--
+}
+
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter(UsState),
+}
+
 // enums can have methods too
 impl Message {
     fn call(&self) {
@@ -35,14 +49,12 @@ enum Option<T> {
 }
 */
 
-
 struct IpAddrStruct {
     kind: IpAddrKind,
     address: String,
 }
 
 fn main() {
-    println!("Hello, world!");
     let home = IpAddrStruct {
         kind: IpAddrKind::V4,
         address: String::from("127.0.0.1"),
@@ -62,4 +74,46 @@ fn main() {
     // the Option enum examples
     let absent_number: Option<i32> = None;
     let some_string = Some("a string");
+
+    println!("{}", value_in_cents(Coin::Nickel));
+
+    // using Option<T>
+    let five = Some(5);
+    let six = plus_one(five);
+    let none = plus_one(None);
+
+    // _ indicates that the value is to be ignored
+    // empty tuple () means that nothing will be done
+    let dice_roll = 9;
+    match dice_roll {
+        3 => add_fancy_hat(),
+        7 => remove_fancy_hat(),
+        _ => (),
+    }
 }
+
+fn value_in_cents(coin: Coin) -> u8 {
+    // match is used to compare a value against a series of patterns
+    match coin {
+        Coin::Penny => 1,
+        Coin::Nickel => 5,
+        Coin::Dime => 10,
+        Coin::Quarter(state) => {
+            println!("State quarter from {:?}!", state);
+            25
+        }
+    }
+}
+
+fn plus_one(x: Option<i32>) -> Option<i32> {
+    // match can be used to get the inner value of Some
+    match x {
+        // matches are exhaustive (omitting None would cause compile-time error)
+        // non-exhaustive patterns: `None` not covered
+        None => None,
+        Some(i) => Some(i + 1),
+    }
+}
+
+fn add_fancy_hat() {}
+fn remove_fancy_hat() {}

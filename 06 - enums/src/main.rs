@@ -1,3 +1,5 @@
+#![allow(unused)]
+
 enum IpAddrKind {
     V4,
     V6,
@@ -89,6 +91,13 @@ fn main() {
         3 => add_fancy_hat(),
         7 => remove_fancy_hat(),
         _ => (),
+    }
+
+    // if let takes a pattern and expression seperated by `=`
+    let coin = Coin::Quarter(UsState::Alabama);
+    // less typing but losing the exhaustive checking of match
+    if let Coin::Quarter(state) = coin {
+        println!("State quarter from {:?}!", state);
     }
 }
 
